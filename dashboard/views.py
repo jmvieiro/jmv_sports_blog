@@ -332,7 +332,6 @@ def user_edit_avatar(request):
         form_avatar= AvatarForm(request.POST, request.FILES)
         if form_avatar.is_valid():
 
-
             try:
                 user = User.objects.get(id=form_avatar.cleaned_data['user'].id)
             except User.DoesNotExist:
@@ -348,7 +347,10 @@ def user_edit_avatar(request):
 
             new_avatar = Avatar(user=user, avatar=form_avatar.cleaned_data['avatar'])
             new_avatar.save()
-            request.session['avatar'] = new_avatar.avatar.url
+
+            if user == request.user:
+                request.session['avatar'] = new_avatar.avatar.url
+
             return render(request, "success.html", {"response": f"El avatar del usuario '{form_avatar.cleaned_data['user'].username}' ha sido actualizado satisfactoriamente.", "url": "/dashboard/user/edit_avatar"})
         else:
             return render(request, "error.html", {"response": "El formulario tenía un error y no pudo ser procesado. Por favor, volvé a intentarlo.", "url": "/dashboard/user/edit_avatar"})
