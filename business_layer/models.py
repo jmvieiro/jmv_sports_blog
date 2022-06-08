@@ -12,7 +12,7 @@ class Subject(models.Model):
 
 
 class Avatar(models.Model):
-    user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
     def __str__(self):
@@ -37,9 +37,9 @@ class Post(models.Model):
 
 class Message(models.Model):
     sender = models.ForeignKey(
-        User, on_delete=models.RESTRICT, related_name='sender')
+        User, on_delete=models.CASCADE, related_name='sender')
     receiver = models.ForeignKey(
-        User, on_delete=models.RESTRICT, related_name='receiver')
+        User, on_delete=models.CASCADE, related_name='receiver')
     content = models.TextField()
     ts_created = models.DateTimeField(editable=False, default=timezone.now)
     is_read = models.BooleanField(default=False)
@@ -49,8 +49,8 @@ class Message(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.RESTRICT)
-    author = models.ForeignKey(User, on_delete=models.RESTRICT)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     ts_created = models.DateTimeField(editable=False, default=timezone.now)
     is_active = models.BooleanField(default=True)
