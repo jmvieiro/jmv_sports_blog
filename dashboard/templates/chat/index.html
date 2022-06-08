@@ -1,0 +1,161 @@
+{% extends 'layout_dashboard.html' %} {% load static %} {% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Chat</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item active">
+            <a href="{% url 'dashboard:admin' %}">Inicio</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card direct-chat direct-chat-info">
+          <div class="card-header">
+            <h3 class="card-title">Contactos</h3>
+          </div>
+          <div class="card-header">
+            {% if usuarios|length > 0 %} 
+            {% for usuario in usuarios %}
+            <a
+              href="{% url 'dashboard:chat_index' usuario.id %}"
+              class="text-white"
+            >
+              <div class="media mb-3">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    {{usuario.username}} 
+                    {% if usuario.is_superuser %}
+                    <i class="text-info"> -administrador- </i>
+                    {% endif %}
+                    <span class="float-right text-sm text-muted"
+                      ><i class="fas fa-angle-right"></i
+                    ></span>
+                  </h3>
+                </div>
+              </div>
+            </a>
+            {% endfor %} 
+            {% else %}
+            <div class="media mb-3">
+              <div class="media-body">
+                <h3 class="dropdown-item-title">
+                  No hay otros contactos registrados en el sistema.
+                </h3>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <!-- DIRECT CHAT -->
+        {% if destinatario %}
+        <div class="card direct-chat direct-chat-warning">
+          <div class="card-header">
+            <h3 class="card-title">Conversación con "{{destinatario}}"</h3>
+          </div>
+          <div class="card-body">
+            <div
+              class="direct-chat-messages"
+              id="chat_messages"
+              style="height: 350px"
+            >
+              {% for mensaje in mensajes %} 
+              {% if mensaje.sender != request.user %}
+              <div class="direct-chat-msg">
+                <div class="direct-chat-infos clearfix">
+                  <!-- <span class="direct-chat-name float-left mr-2">{{mensaje.sender}}</span> -->
+                  <span class="direct-chat-timestamp float-left"
+                    >{{mensaje.ts_created|date:'d/m/Y H:i:s'}}</span
+                  >
+                </div>
+                <span class="direct-chat-name float-left"
+                  >{{mensaje.sender}}</span
+                >
+                <div
+                  class="direct-chat-text float-left"
+                  style="margin-left: 10px"
+                >
+                  {{mensaje.content}}
+                </div>
+              </div>
+              {% else %}
+              <div class="direct-chat-msg right">
+                <div class="direct-chat-infos clearfix">
+                  <!-- <span class="direct-chat-name float-right ml-2">{{mensaje.sender}}</span> -->
+                  <span class="direct-chat-timestamp float-right"
+                    >{{mensaje.ts_created|date:'d/m/Y H:i:s'}}</span
+                  >
+                </div>
+                <span class="direct-chat-name float-right"
+                  >{{mensaje.sender}}</span
+                >
+                <div
+                  class="direct-chat-text float-right"
+                  style="margin-right: 10px"
+                >
+                  {{mensaje.content}} 
+                  {% if mensaje.is_read %}
+                  <i
+                    class="fas fa-check-double text-success"
+                    aria-hidden="true"
+                  ></i>
+                  {% else %}
+                  <i class="fas fa-check text-danger" aria-hidden="true"></i>
+                  {% endif %}
+                </div>
+              </div>
+              {% endif %} 
+              {% endfor %}
+            </div>
+          </div>
+          <div class="card-footer">
+            <form
+              action="{% url 'dashboard:chat_index' destinatario.id %}"
+              method="post"
+            >
+              {% csrf_token %}
+              <div class="input-group">
+                <input
+                  type="text"
+                  name="message"
+                  id="message"
+                  placeholder="Escribí un mensaje..."
+                  class="form-control"
+                />
+                <span class="input-group-append">
+                  <button type="submit" class="btn btn-warning">Enviar</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+        {% else %} {% if usuarios|length > 0 %}
+        <div class="card direct-chat direct-chat-warning">
+          <div class="card-header">
+            <h3 class="card-title">
+              Seleccioná una conversación para enviar y leer tus mensajes.
+            </h3>
+          </div>
+        </div>
+        {% endif %} {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

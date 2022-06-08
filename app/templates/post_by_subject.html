@@ -1,0 +1,92 @@
+{% extends 'layout.html' %} {% load static %} 
+
+{% block header %}
+
+{% if response is None %}
+
+<div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col-sm-6">
+      <h2>Posts por tema: {{ subject }}</h2>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock %} 
+
+{% block content %} 
+
+{% if response %}
+
+<div
+  class="container"
+  style="
+    border: 1px solid #ccc;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 30px 50px;
+    margin-bottom: 25px;
+  "
+>
+  <div class="row">
+    <h2 style="text-align: center">{{response}}</h2>
+  </div>
+  <hr />
+  <div class="row">
+    <a
+      href="{% url 'blogjmv:index' %}"
+      class="btn btn-info btn-sm text-uppercase center"
+      >Volver al inicio</a
+    >
+  </div>
+</div>
+
+{% else %}
+
+<div class="row px-3 pb-3">
+  {% for post in posts %}
+
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-5">
+        <img
+          src="{{ post.image.url }}"
+          alt="Foto de {{ post.title }}"
+          class="card-img"
+        />
+      </div>
+      <div class="col-md-7">
+        <div class="card-body px-3 py-1">
+          <div>
+            <span class="badge bg-warning">{{post.subject}}</span>
+          </div>
+          <h5 class="card-title">
+            <a href="{% url 'blogjmv:post_detail' post.id %}">{{post.title}}</a>
+          </h5>
+          <p class="card-text mb-0">
+            <small class="text-muted"
+            >por 
+            {% if post.avatar.avatar %}
+            <img class="img-circle mx-2" src="{{post.avatar.avatar.url}}" width="40px" alt="avatar" />
+            {% else %}
+            <img
+              class="img-circle"
+              src="{% static 'images/profile.png' %}"
+              width="40px"
+              alt="avatar"
+            />
+            {% endif %}
+            {{post.author}} | {{post.ts_updated|date:'d/m/Y H:i:s'}}</small
+          >
+          </p>
+          <p class="card-text mb-0">{{post.subtitle | truncatechars:100}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %} 
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'layout.html' %} {% load static %} 
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-5">
+    <div class="card card-danger card-outline">
+      <div class="card-body box-profile">
+        <div class="text-center">
+          <img
+            class="profile-user-img img-fluid img-circle"
+            src="{% static 'images/jmv.png' %}"
+            alt="User profile picture"
+          />
+        </div>
+
+        <h3 class="profile-username text-center">Javier Martín Vieiro</h3>
+
+        <p class="text-muted text-center mb-0">Contador Público</p>
+        <p class="text-muted text-center mb-0">
+          Técnico Universitario en Desarrollo de Software
+        </p>
+        <p class="text-muted text-center">Desarrollador Web</p>
+
+        <hr />
+
+        <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong>
+        <p class="text-muted" style="font-size: 15px">
+          Buenos Aires, Argentina
+        </p>
+
+        <hr />
+
+        <strong><i class="fas fa-address-book mr-1"></i> Contacto</strong>
+
+        <div class="text-left">
+          <small class="text-muted mb-0">
+            <b>
+              <a href="https://github.com/jmvieiro" target="_blank"
+                >LinkedIn</a
+              ></b
+            >
+          </small>
+          |
+          <small class="text-muted mb-0">
+            <b>
+              <a
+                href="https://www.linkedin.com/in/javier-martin-vieiro/"
+                target="_blank"
+                >Github</a
+              ></b
+            >
+          </small>
+          |
+          <small class="text-muted mb-0">
+            <b>
+              <a href="mailto:jmvieiro@gmail.com" target="_blank">E-Mail</a></b
+            >
+          </small>
+        </div>
+        <hr />
+
+        <strong><i class="far fa-file-alt mr-1"></i> Presentación</strong>
+        <p class="text-muted mt-2" style="font-size: 15px">
+          Con más de 15 años de experiencia en el sector público me he
+          especializado en análisis de normativa en materia impositiva y de la
+          seguridad social. Me apasiona la tecnología, la programación y el
+          desarrollo de aplicaciones. Me considero una persona perseverante,
+          creativa y curiosa, buscando constantemente adquirir nuevos
+          conocimientos.
+        </p>
+        <p class="text-muted" style="font-size: 15px">
+          Me he desempeñado como analista y desarrollador backend y frontend de
+          aplicaciones web en C# .NET, POO, SQL, JavasScript, Ajax y jQuery,
+          como Crédito Tasa Cero, Programa ATP, Monotributo, Domicilio Fiscal
+          Electrónico, Pago mediante tarjeta de crédito, Constatación de
+          comprobantes, entre otros.
+        </p>
+        <p class="text-muted mb-0" style="font-size: 15px">
+          Actualmente me encuentro ocupando el cargo de Jefe de División
+          Programas de Servicios al Contribuyente de AFIP.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="card card-danger card-outline">
+      <div class="card-body">
+        <strong
+          ><i class="fas fa-briefcase mr-1"></i> Experiencia laboral</strong
+        >
+        <div class="">
+          <p class="text-muted mb-0 mt-2">Estudio Vieiro (2017 - actualidad)</p>
+          <small class="d-block"
+            >Desarrollo y mantimiento de un sistema de liquidación de sueldos
+            (<a href="http://www.jov.com.ar" target="_blank">jov.com.ar</a
+            >).</small
+          >
+          <p class="text-muted mb-0 mt-2">
+            AFIP - Administración Federal de Ingreos Públicos (2007 -
+            actualidad)
+          </p>
+          <small class="d-block"
+            >Subdirección General de Servicios al Contribuyente (2007 - 2014 y
+            2021 - actualidad)</small
+          >
+          <small class="d-block"
+            >Subdirección General de Sistemas y Telecomunicaciones (2015 -
+            2021)</small
+          >
+          <small class="d-block" l
+            >Subdirección General de Coordinación Técnico Institucional (2014 -
+            2015)</small
+          >
+          <p class="text-muted mb-0 mt-2">Ernst & Young (2006)</p>
+          <small class="d-block">Especialista en Auditoría</small>
+          <p class="text-muted mb-0 mt-2">Tristán & Asociados (2005)</p>
+          <small class="d-block">Asistente Contable</small>
+        </div>
+
+        <hr />
+        <strong><i class="fas fa-book mr-1"></i> Educación</strong>
+
+        <p class="text-muted mb-0 mt-2">
+          Maestría en Gestión de Servicios Tecnológicos y de Telecomunicaciones
+        </p>
+        <small> Universidad de San Andrés </small>
+        <p class="text-muted mb-0 mt-2">
+          Tecnicatura Universitaria en Desarrollo de Software
+        </p>
+        <small> Universidad Argentina de la Empresa </small>
+        <p class="text-muted mb-0 mt-2">Contador Público</p>
+        <small>Universidad Católica Argentina</small>
+        <hr />
+        <strong><i class="fas fa-code mr-1"></i> Desarrollo de Software</strong>
+
+        <p class="text-muted mb-0 mt-2">
+          HTML – CSS – JavaScript – Ajax - jQuery - C# .NET - POO - PHP – SQL –
+          MySQL
+        </p>
+        <small class="d-block">Educación IT</small>
+        <p class="text-muted mb-0 mt-2">
+          React JS - Redux - React Native - Vue JS – Python - Django
+        </p>
+        <small class="d-block" l>CoderHouse</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

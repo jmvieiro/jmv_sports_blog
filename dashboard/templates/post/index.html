@@ -1,0 +1,120 @@
+{% extends 'layout_dashboard.html' %} {% load static %} {% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Admin Posts</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard:admin' %}">Inicio</a>
+          </li>
+          <li class="breadcrumb-item active">Posts</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Listado de posts -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-8">
+                <h3>Listado de posts</h3>
+              </div>
+              <div class="col-4">
+                <h3 class="card-title float-right pr-2">
+                  <a class="btn btn-primary" href="{% url 'dashboard:post_form' %}"
+                    >Agregar Post</a
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table class="data_table table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Autor</th>
+                  <th>Título</th>
+                  <th>Tema</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for post in posts %}
+                <tr>
+                  <td>{{post.author}}</td>
+                  <td>{{post.title}}</td>
+                  <td>{{post.subject}}
+                    {% if post.subject.is_active %}
+                    <span class="badge badge-success">A</span>
+                    {% else %}
+                    <span class="badge badge-danger">I</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if post.is_active %}
+                    <span class="badge badge-success">Activo </span>
+                    {% else %}
+                    <span class="badge badge-danger">Inactivo</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a
+                      href="{% url 'dashboard:post_form' post.id %}"
+                      class="ml-2 btn btn-sm btn-primary"
+                    >
+                      <i class="fas fa-edit mr-2"></i>Editar</a
+                    >
+                    {% if post.is_active %}
+                    <a
+                      href="{% url 'dashboard:post_update_state' post.id %}"
+                      class="ml-2 btn btn-sm btn-warning"
+                    >
+                      <i class="fas fa-ban mr-2"></i>Ocultar</a
+                    >
+                    {% else %}
+                    <a
+                      href="{% url 'dashboard:post_update_state' post.id %}"
+                      class="ml-2 btn btn-sm btn-success"
+                    >
+                      <i class="fas fa-check mr-2"></i>Publicar</a
+                    >
+                    {% endif %}
+                    <a
+                      href="{% url 'dashboard:post_delete' post.id %}"
+                      class="ml-2 btn btn-sm btn-danger"
+                    >
+                      <i class="fas fa-trash mr-2"></i>Eliminar</a
+                    >
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.Listado de posts -->
+
+{% endblock %}

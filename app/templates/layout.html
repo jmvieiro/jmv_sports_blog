@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    {% load static %}
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JMV Sports | Blog</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/fontawesome-free/css/all.min.css' %}"
+    />
+    <!-- Ionicons -->
+    <link
+      rel="stylesheet"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+    />
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}"
+    />
+    <!-- iCheck -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}"
+    />
+    <!-- JQVMap -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/jqvmap/jqvmap.min.css' %}"
+    />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}" />
+    <!-- overlayScrollbars -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}"
+    />
+    <!-- Daterange picker -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/daterangepicker/daterangepicker.css' %}"
+    />
+    <!-- summernote -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/summernote/summernote-bs4.min.css' %}"
+    />
+    <!-- DataTables -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}"
+    />
+    <style>
+      .direct-chat-text::after,
+      .direct-chat-text::before {
+        top: 8px !important;
+      }
+      .alert-error, .help-inline {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body
+    class="hold-transition sidebar-mini layout-fixed layout-footer-fixed layout-navbar-fixed"
+  >
+    <div class="wrapper">
+
+      <!-- Navbar -->
+      <nav
+        class="main-header navbar navbar-expand navbar-dark navbar-light"
+        style="
+          margin-left: 0px !important;
+          border-bottom: 1px solid black;
+          background-color: #b84735;
+        "
+      >
+        <div class="container py-1">
+          <!-- Left navbar links -->
+          <ul class="navbar-nav">
+            <li class="nav-item d-none d-sm-inline-block">
+              <img
+                style="max-width: 140px"
+                src="{% static 'images/logo-jmv.jpg' %}"
+                alt="User Avatar"
+              />
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'blogjmv:index' %}" class="nav-link">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'blogjmv:about' %}" class="nav-link">Acerca de mí</a>
+            </li>
+          </ul>
+          <!-- Right navbar links -->
+          <ul class="navbar-nav ml-auto">
+            <!-- Navbar Search -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                data-widget="navbar-search"
+                href="#"
+                role="button"
+              >
+                <i class="fas fa-search"></i>
+              </a>
+              <div class="navbar-search-block">
+                <form
+                  class="form-inline"
+                  method="GET"
+                  action="{% url 'blogjmv:index' %}"
+                >
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-navbar"
+                      type="search"
+                      placeholder="Buscar post por palabra clave"
+                      aria-label="Search"
+                      id="key_word"
+                      name="key_word"
+                    />
+                    <div class="input-group-append">
+                      <button class="btn btn-navbar" type="submit">
+                        <i class="fas fa-search"></i>
+                      </button>
+                      <button
+                        class="btn btn-navbar"
+                        type="button"
+                        data-widget="navbar-search"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                data-widget="fullscreen"
+                href="#"
+                role="button"
+              >
+                <i class="fas fa-expand-arrows-alt"></i>
+              </a>
+            </li>
+
+            {% if not request.user.is_authenticated %}
+
+            <li class="nav-item">
+              <a
+                class="nav-link mr-1"
+                style="border: 1px solid black; border-radius: 5px"
+                href="{% url 'blogjmv:login' %}"
+                role="button"
+              >
+                <i class="fas fa-sign-in-alt"></i>
+                <span class="d-none d-lg-inline-block"
+                  >&nbsp;Iniciá sesión</span
+                >
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                style="border: 1px solid black; border-radius: 5px"
+                href="{% url 'blogjmv:register' %}"
+                role="button"
+              >
+                <i class="fas fa-user-plus"></i>
+                <span class="d-none d-lg-inline-block">&nbsp;Registrate</span>
+              </a>
+            </li>
+
+            {% else %}
+            <li class="nav-item">
+              <a
+                class="nav-link mr-1"
+                style="border: 1px solid black; border-radius: 5px"
+                href="{% url 'dashboard:admin' %}"
+                role="button"
+              >
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="d-none d-lg-inline-block"
+                  >&nbsp;Dashboard [{{request.user}}]</span
+                >
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                style="border: 1px solid black; border-radius: 5px"
+                href="{% url 'blogjmv:logout' %}"
+                role="button"
+              >
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="d-none d-lg-inline-block"
+                  >&nbsp;Cerrar sesión</span
+                >
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+      <!-- /.navbar -->
+
+      <div class="content-wrapper" style="margin-left: 0px !important">
+        <section>{% block landing %} {% endblock %}</section>
+        <div class="container p-4 pt-5">
+          <section>{% block header %} {% endblock %}</section>
+          <section>
+            <div class="row">
+              <div class="{% if subjects %} col-md-9 {% else %} col-12 {% endif %}">{% block content %} {% endblock %}</div>
+
+              {% if subjects or authors %}
+              <div class="col-md-3">
+                {% block extras %} {% endblock %}
+                {% if subjects %}
+                <div class="card">
+                  <div class="card-header" style="background-color: #b84735">
+                    <h3 class="card-title text-white">Temas</h3>
+                  </div>
+                  <div class="card-body">
+                    {% for subject in subjects %}
+                    <p class="mb-0">
+                      <a href="{% url 'blogjmv:post_by_subject' subject.id %}"
+                        >{{subject.name}}</a
+                      >
+                    </p>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endif %}
+                {% if authors %}
+                <div class="card">
+                  <div class="card-header" style="background-color: #b84735">
+                    <h3 class="card-title text-white">Autores</h3>
+                  </div>
+                  <div class="card-body">
+                    {% for author in authors %}
+                    <p class="mb-0">
+                      <a href="{% url 'blogjmv:post_by_author' author.id %}"
+                        >{{author.username}}</a
+                      >
+                    </p>
+                    {% endfor %}
+                  </div>  
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+          </section>
+        </div>
+      </div>
+
+      <footer class="main-footer" style="margin-left: 0px !important">
+        <div class="container">
+          <strong>Copyright &copy; 2022 <a href="#">JMV Sports</a>.</strong>
+          Todos los derechos reservados.
+          <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 1.0.0
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge("uibutton", $.ui.button);
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- ChartJS -->
+    <script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+    <!-- Sparkline -->
+    <script src="{% static 'plugins/sparklines/sparkline.js' %}"></script>
+    <!-- JQVMap -->
+    <script src="{% static 'plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+    <script src="{% static 'plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="{% static 'plugins/jquery-knob/jquery.knob.min.js' %}"></script>
+    <!-- daterangepicker -->
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <!-- Summernote -->
+    <script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/adminlte.js' %}"></script>
+
+    <!-- DataTables  & Plugins -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+
+    <!-- Page specific script -->
+    <script>
+      $(function () {
+        $("#summernote").summernote();
+        $("#id_content").summernote();
+        $(".data_table").DataTable({
+          responsive: true,
+          lengthChange: true,
+          autoWidth: true,
+          language: {
+            info: "Mostrando página _PAGE_ de _PAGES_",
+            emptyTable: "No hay registros disponibles",
+            last: "Última página",
+            next: "Siguiente página",
+            first: "Primera página",
+            previous: "Página previa",
+            infoEmpty: "No hay registros disponibles",
+            infoFiltered: "(filtrados de _MAX_ registros totales)",
+            decimal: ",",
+            thousands: ".",
+            lengthMenu: "Mostrar _MENU_ registros",
+            processing: "Procesando...",
+            search: "Buscar: ",
+            zeroRecords: "No hay registros disponibles",
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+{% extends 'layout_dashboard.html' %} {% load static %} {% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Admin Dashboard</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item active">
+            <a href="{% url 'dashboard:admin' %}">Inicio</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>{{ postsPublicados }}</h3>
+            <p>Posts en total en el blog</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <a href="{% url 'dashboard:post_index' %}" class="small-box-footer"
+            >
+            {% if request.user.is_superuser %}
+            Ver todos los posts 
+            {% else %}
+            Ver tus posts
+            {% endif %}
+            <i class="fas fa-arrow-circle-right"></i
+          ></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>
+              {{ tusPostsPublicados }}<sup style="font-size: 19px">%</sup>
+            </h3>
+            <p>Tus posts publicados en el blog</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+          <a href="{% url 'dashboard:post_index' %}" class="small-box-footer"
+            >Ver tus posts <i class="fas fa-arrow-circle-right"></i
+          ></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>{{ tusPostsNoPublicados }}</h3>
+
+            <p>Tus posts no publicados en el blog</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <a href="{% url 'dashboard:post_index' %}" class="small-box-footer"
+            >¡Publicalos! <i class="fas fa-arrow-circle-right"></i
+          ></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{mensajesNoLeidos}}</h3>
+
+            <p>Mensajes nuevos</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-chatboxes"></i>
+          </div>
+          <a href="{% url 'dashboard:chat_index' %}" class="small-box-footer"
+            >Ir al chat <i class="fas fa-arrow-circle-right"></i
+          ></a>
+        </div>
+      </div>
+      <!-- ./col -->
+    </div>
+  </div>
+  
+  <div class="wrapper">
+  <!-- Preloader -->
+  <div
+    class="preloader flex-column justify-content-center align-items-center"
+  >
+    <img
+      class="animation__shake"
+      src="{% static 'dist/img/logo-gray-full.png' %}"
+      alt="AdminJMV"
+      width="300"
+    />
+  </div>
+  
+</section>
+{% endblock %}

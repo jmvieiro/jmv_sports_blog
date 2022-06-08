@@ -1,0 +1,122 @@
+{% extends 'layout.html' %} {% load static %} {% load crispy_forms_tags %} 
+
+{% block content %} 
+
+{% if response %}
+<div
+  class="container"
+  style="
+    border: 1px solid #ccc;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 30px 50px;
+    margin-bottom: 25px;
+  "
+>
+  <div class="row">
+    <h2 style="text-align: center">{{response}}</h2>
+  </div>
+  <hr />
+  <div class="row">
+    <a
+      href="{% url 'blogjmv:index' %}"
+      class="btn btn-info btn-sm text-uppercase center"
+      >Volver al inicio</a
+    >
+  </div>
+</div>
+{% else %}
+
+<div class="card card-widget p-2">
+  <div class="card-header">
+    <div>
+      <span class="badge bg-warning" style="font-size: 18px"
+        >{{post.subject}}</span
+      >
+    </div>
+    <div class="user-block">
+       <h3>{{post.title}}</h3>
+      <p>{{post.subtitle}}</p>
+      <span class="username ml-2">
+        {% if post.avatar.avatar %}
+        <img class="img-circle mx-2" src="{{post.avatar.avatar.url}}" width="40px" alt="avatar" />
+        {% else %}
+        <img
+          class="img-circle mr-2"
+          src="{% static 'images/profile.png' %}"
+          width="40px"
+          alt="avatar"
+        />
+        {% endif %}
+        <a href="{% url 'blogjmv:post_by_author' post.author.id %}">{{post.author}}</a></span>
+      <span class="description ml-2"
+        >Última actualización: {{ post.ts_updated|date:'d/m/Y H:i:s'}}
+      </span>
+    </div>
+  </div>
+  <div class="card-body">
+    <img class="img-fluid pad" src="{{ post.image.url }}" alt="Photo" />
+    <p>{{post.content|safe}}</p>
+    <a
+      href="{% url 'blogjmv:post_like' post.id %}"
+      role="button"
+      class="btn btn-default btn-sm"
+      ><i class="far fa-thumbs-up"></i> Me gusta</a
+    >
+    <span class="float-right text-muted"
+      >{{post.likes}} me gusta - {{comments|length}} comentarios</span
+    >
+  </div>
+  <div class="card-footer card-comments">
+    {% for comment in comments %}
+    <div class="card-comment">
+      <div class="comment-text ml-2">
+        <span class="username">
+          {{comment.author}}
+          <span class="text-muted float-right"
+            >{{comment.ts_created|date:'d/m/Y H:i:s'}}</span
+          >
+        </span>
+        {{comment.text|safe}}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card-footer">
+    {% if request.user.is_authenticated %}
+    <form
+      action="{% url 'blogjmv:comment_create' post.id %}"
+      method="post"
+      id="comment"
+    >
+      <div class="img-push">
+        <small for="comment">{{request.user}}, dejá tu comentario:</small>
+        {% crispy form %}
+      </div>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% endblock %} 
+
+{% block extras %} 
+
+{% if response is None %} 
+
+{% if request.user.is_authenticated %}
+<div class="callout callout-info">
+  <h5>¡Bienvenido {{request.user}}!</h5>
+  <p>Podés dejar tu comentario al pie del post.</p>
+</div>
+{% else %}
+<div class="callout callout-info">
+  <h5>Comentarios en posts</h5>
+  <p>Para dejar un comentario tenés que estar estar logueado.</p>
+</div>
+{% endif %} 
+
+{% endif %} 
+
+{% endblock %} 

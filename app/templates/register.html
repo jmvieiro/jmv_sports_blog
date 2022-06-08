@@ -1,0 +1,28 @@
+{% extends 'layout.html' %} {% load static %} {% load crispy_forms_tags %} 
+
+{% block content %}
+
+  <div
+    class="container"
+    style="
+      border: 1px solid #ccc;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px 30px;
+    "
+  >
+    <div>
+      {% if response %}
+      <div class="callout callout-danger">
+        <p>{{response}}</p>
+      </div>
+      {% endif %}
+      <h2>Registrate</h2>
+      <p style="margin: 15px 0">
+        ¡Completá los datos para formar parte de nuestra comunidad!
+      </p>
+    </div>
+    {% crispy form %}
+  </div>
+
+{% endblock %}
