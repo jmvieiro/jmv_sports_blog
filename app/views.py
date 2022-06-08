@@ -128,6 +128,10 @@ def register(request):
             password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=password)
             login(request, user)
+            try:
+                request.session['avatar'] = Avatar.objects.get(user=user).avatar.url
+            except:
+                request.session['avatar'] = '/static/dist/img/user-placeholder.png'
             return redirect("blogjmv:index")
         else:
             if 'username' in form.errors:

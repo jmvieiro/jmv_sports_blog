@@ -186,7 +186,7 @@ def post_delete_confirm(request, id):
         else:
             obj = Post.objects.get(id=id, author=request.user)
         obj.delete()
-        return redirect("dashboard:post_index")
+        return render(request, "success.html", {"response": "El post ha sido eliminado satisfactoriamente.", "url": "/dashboard/post/index"})
     except Post.DoesNotExist:
         return render(request, "error.html", {"response": "El post no existe o no tenés permisos para modificarlo.", "url": "/dashboard/post/index"})
     except ValueError:
