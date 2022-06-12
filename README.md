@@ -63,7 +63,7 @@ Principales funcionalidades:
 #### Perfil de usuario:
 - Cada usuario puede modificar su perfil (nombre, apellido, email y contraseña). Al usuario no administrador no se le permite editar su avatar, quedando disponible únicmaente para el usuario administrador.
 
-### Congiuración del sistema:
+### Configuración del sistema:
 
 A efectos de facilitar la creación de usuarios, están comentadas las validaciones de seguridad de la contraseña en el archivo "settings.py" dentro del proyecto.
 ### Casos de prueba
