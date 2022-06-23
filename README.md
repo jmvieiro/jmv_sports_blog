@@ -51,7 +51,7 @@ Aplicación que permite a los usuarios registrados administrar el contenido del 
 Principales funcionalidades:
 
 #### Subjects (temas):
-- Solo pueden ser creados, editados o elminados por el usuario administrador (superuser). Se puede pausar la visualización de un tema y sus posts asociados "ocultándolo" (inactivo).
+- Solo pueden ser creados, editados o eliminados por el usuario administrador (superuser). Se puede pausar la visualización de un tema y sus posts asociados "ocultándolo" (inactivo).
 #### Posts:
 - Publicación de un post por parte del usuario -autor-.
 - Edicición de un post por parte de un usuario, si este fue el autor del mismo. El usuario administrador puede modificar cualquier post de cualquier autor.
